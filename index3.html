@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .card {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Scholarship Recommendation System</h2>
+    <label for="department">Department:</label>
+    <select id="department">
+        <option value="Computational Science">Computational Science</option>
+        <option value="Social Science">Social Science</option>
+    </select>
+
+    <label for="category">Cast Category:</label>
+    <select id="category">
+        <option value="SC">SC</option>
+        <option value="OPEN">OPEN</option>
+    </select>
+
+    <label for="course">Course Type:</label>
+    <select id="course">
+        <option value="Professional">Professional</option>
+        <option value="Non Professional">Non Professional</option>
+    </select>
+
+    <label for="disability">Disability:</label>
+    <select id="disability">
+        <option value="NO">NO</option>
+        <option value="YES">YES</option>
+    </select>
+
+    <button onclick="getScholarship()">Find Scholarships</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    const data = [
+        { department: "Computational Science", category: "SC", course: "Non Professional", disability: "NO", scheme: "GOI Post Matric", link: "https://mahadbt.maharashtra.gov.in/Login/Login" },
+        { department: "Computational Science", category: "SC", course: "Non Professional", disability: "NO", scheme: "Swadhar Yojana", link: "https://hmas.mahait.org/" },
+        { department: "Computational Science", category: "OPEN", course: "Professional", disability: "NO", scheme: "EBC", link: "https://mahadbt.maharashtra.gov.in/Login/Login" },
+        { department: "Computational Science", category: "OPEN", course: "Professional", disability: "NO", scheme: "Panjabrao Deshmukh", link: "https://mahadbt.maharashtra.gov.in/Login/Login" },
+        { department: "Social Science", category: "SC", course: "Non Professional", disability: "YES", scheme: "GOI Post Matric (Person with Disability)", link: "https://mahadbt.maharashtra.gov.in/Login/Login" }
+    ];
+
+    function getScholarship() {
+        const department = document.getElementById('department').value;
+        const category = document.getElementById('category').value;
+        const course = document.getElementById('course').value;
+        const disability = document.getElementById('disability').value;
+
+        const results = data.filter(item => 
+            item.department === department &&
+            item.category === category &&
+            item.course === course &&
+            item.disability === disability
+        );
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = "";
+
+        if (results.length > 0) {
+            results.forEach(item => {
+                resultDiv.innerHTML += `
+                    <div class="card">
+                        <strong>Scholarship:</strong> ${item.scheme}<br>
+                        <a href="${item.link}" target="_blank">Apply Here</a>
+                    </div>
+                `;
+            });
+        } else {
+            resultDiv.innerHTML = "<p>No scholarships found for the selected criteria.</p>";
+        }
+    }
+</script>
+
+</body>
+</html>
